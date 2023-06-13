@@ -36,6 +36,7 @@ jobs:
         with:
           package-path: ./package.json
       - uses: ncipollo/release-action@v1
+        if: env.previous_tag
         with:
           artifacts: "dist/*"
           name: ${{ steps.create_tag.outputs.version }}
