@@ -1,0 +1,16 @@
+{
+  "name": "certgen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Adams",
+  "license": "ISC",
+  "dependencies": {
+    "docxtemplater": "^3.37.11",
+    "pizzip": "^3.1.4"
+  }
+}
