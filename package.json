@@ -5,13 +5,22 @@
   "main": "index.js",
   "scripts": {
     "dev": "node index.js",
+    "build": "./node_modules/.bin/pkg .",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": "./index.js",
+  "pkg": {
+    "scripts": "./*.js",
+    "assets": "./**/*.docx",
+    "targets": [ "node16-linux-arm64", "node16-macos-arm64", "node16-win-arm64" ],
+    "outputPath": "dist"
   },
   "author": "Daniel Adams",
   "license": "ISC",
   "dependencies": {
     "docxtemplater": "^3.37.11",
     "inquirer": "^8.2.5",
-    "pizzip": "^3.1.4"
+    "pizzip": "^3.1.4",
+    "pkg": "^5.8.1"
   }
 }
