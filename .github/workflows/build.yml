@@ -1,0 +1,41 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '.github/**/*.yml'
+      - '.gitignore'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - '.github/**/*.yml'
+      - '.gitignore'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: echo "previous_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo '')" >> $GITHUB_ENV
+      - name: Create Tag
+          id: create_tag
+          uses: jaywcjlove/create-tag-action@main
+          if: env.previous_tag
+          with:
+            package-path: ./package.json
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          name: ${{ steps.create_tag.outputs.version }}
+          tag: ${{ steps.create_tag.outputs.version }}
